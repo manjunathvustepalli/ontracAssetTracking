@@ -1,11 +1,11 @@
-import {getnetwork} from '../Network'
+import {getnetwork,postnetwork} from '../Network'
 export function get() {
   return (dispatch) => {
     dispatch(fetchProductsBegin());
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token e64b88ffc31676443bac50126e11a28e73b10e3bc49e9cb58c555c723f467687"
+      "Token bb8a5dfea91dd4c1a3097ccc306245b078e719cfbf40cda1ced039f69711c40d"
     );
 
     var requestOptions = {
@@ -15,7 +15,7 @@ export function get() {
     };
 
     return fetch(
-      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
+      process.env.REACT_APP_URL+"resManager/address/reasons/",
       requestOptions
     )
       .then((response) => {
@@ -34,8 +34,8 @@ export const get1 = () => {
   return (dispatch) => {
     // dispatch(fetchProductsBegin());
     getnetwork(
-      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
-      "Token e64b88ffc31676443bac50126e11a28e73b10e3bc49e9cb58c555c723f467687",
+      process.env.REACT_APP_URL+"resManager/address/reasons/",
+      "Token bb8a5dfea91dd4c1a3097ccc306245b078e719cfbf40cda1ced039f69711c40d",
       ""
     ).then((response) => {
       if (response.status >= 200 && response.status <= 299) {
@@ -58,7 +58,7 @@ export function post(raw) {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token e64b88ffc31676443bac50126e11a28e73b10e3bc49e9cb58c555c723f467687"
+      "Token bb8a5dfea91dd4c1a3097ccc306245b078e719cfbf40cda1ced039f69711c40d"
     );
     myHeaders.append("Content-Type", "application/json");
 
@@ -70,7 +70,7 @@ export function post(raw) {
     };
 
     return fetch(
-      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
+      process.env.REACT_APP_URL+"resManager/address/reasons/",
       requestOptions
     )
       .then((response) => {
@@ -83,6 +83,26 @@ export function post(raw) {
       })
       .catch((error) => console.log(error));
   };
+}
+export const post1=(raw)=>{
+
+  return (dispatch)=>{
+    postnetwork(
+      process.env.REACT_APP_URL+"resManager/address/reasons/",
+      "Token bb8a5dfea91dd4c1a3097ccc306245b078e719cfbf40cda1ced039f69711c40d",
+      raw
+    ).then((response) => {
+      if (response.status >= 200 && response.status <= 299) {
+        dispatch(get1());
+      } else if (response.error) {
+        // dispatch(fetchProductsFailure(response.error));
+      } else {
+        console.log("error");
+        // dispatch(fetchProductsFailure(response));
+      }
+    });
+  }
+
 }
 export const FETCH_PRODUCTS_BEGIN = "FETCH_PRODUCTS_BEGIN";
 export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";

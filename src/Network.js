@@ -12,21 +12,17 @@ export const getnetwork = async (url, token, params) => {
   });
   return response;
 };
-export const post = async (url, token, formdata) => {
+export const postnetwork = async (url, token, formdata) => {
   let headers = {
     headers: {
       Authorization: token,
       "Content-Type": "application/json",
     },
   };
-  let response = await Axios.post(url, formdata, headers)
-    .then((response) => {
-      res = response;
-    
-    })
-    .catch((error) => {
-      return error;
-    });
+  // let data = JSON.stringify({ formdata });
+  let response = await Axios.post(url, formdata, headers).catch((error) => {
+    return error;
+  });
   return response;
 };
 export const put = async (url, token, formdata) => {

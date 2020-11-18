@@ -21,6 +21,7 @@ import { forwardRef } from "react";
 import MaterialTable from "material-table";
 import {
   post,
+  post1,
   FETCH_PRODUCTS_BEGIN,
   fetchProductsBegin,
 } from "../Redux/actions";
@@ -64,10 +65,14 @@ function Producthooks(props) {
   //   shallowEqual
   // );
   const [states, setStates] = useState();
+  const postaddressReason = async (data) => {
+    let data1 = JSON.stringify({ addressReason: data });
+    props.post1(data1);
+  };
   if (props.error) {
     console.log(props.error);
     // return <Errors error={props.error} />;
-    return "error"
+    return "error";
   }
 
   return props.loading ? (
@@ -89,7 +94,7 @@ function Producthooks(props) {
               setTimeout(() => {
                 setStates(newData.addressReason);
                 // this.setState({ ...this.state.data, newData });
-                props.post(newData.addressReason);
+                postaddressReason(newData.addressReason);
                 resolve();
               }, 1000);
             }),
@@ -128,7 +133,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     get1: () => dispatch(get1()),
-    post: (data) => dispatch(post(data)),
+    post1: (data) => dispatch(post1(data)),
     begin: () => dispatch(fetchProductsBegin()),
   };
 };
